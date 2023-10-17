@@ -13,9 +13,12 @@
             <h1 class="text-3xl font-bold mb-4 text-center text-blue-500">Text Prediction</h1>
             <form id="form" class="mb-4">
                 <div class="mb-6">
-                    <label for="seed_text" class="block text-gray-700 font-semibold mb-2">Input Text:</label>
+                    <label for="seed_text" class="block text-gray-700 font-semibold mb-2">Input Text (click to use a sample):
+                        <span id="sampleInput" class="text-blue-500 cursor-pointer">Generate Random</span>
+                    </label>
                     <textarea name="seed_text" id="seed_text" rows="4" class="border p-2 w-full rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-blue-300" placeholder="Enter your text here..."></textarea>
                 </div>
+
 
                 <div class="mb-6">
                     <label for="next_words" class="block text-gray-700 font-semibold mb-2">Number of Words to Predict:</label>
@@ -134,9 +137,36 @@
 
                 });
         }
-    </script>
+        const sampleInputs = [
+            "I will leave if they",
+            "I will leave if they marry",
+            "The sun is shining and the",
+            "She opened the door and saw",
+            "He smiled and said, 'I will'",
+            "They went to the beach and",
+            "In the morning, the birds started",
+            "It was a dark and stormy",
+            "As the day turned into night,",
+            "The old man sat on his",
+            "Once upon a time, in a",
+            "There was a cat that always",
+            "When she looked in the mirror,",
+            "On a cold winter day, a"
+        ];
 
-    <script>
+
+        const sampleInput = document.getElementById("sampleInput");
+
+
+        sampleInput.addEventListener("click", () => {
+            // Get a random sample input from the array
+            const randomIndex = Math.floor(Math.random() * sampleInputs.length);
+            const randomSample = sampleInputs[randomIndex];
+
+            // Set the selected sample input in the textarea
+            seedText.value = randomSample;
+        });
+
         // const nextWords = document.querySelector('#next_words');
         const tooltip = document.querySelector('#tooltip');
 
