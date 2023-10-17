@@ -82,7 +82,17 @@
                     method: 'POST',
                     body: formData
                 })
-                .then(response => response.json())
+                .then(response => {
+                    if (!response.ok) {
+
+                        alert('Memory limit exceeded. This model is hosted with only 512 MB, which may not be sufficient for this deep learning model. For more details, please visit https://github.com/Devbijwe/Next-Word-Prediction-Model.');
+                        loader.style.display = 'none'; // Hide the loading indicator
+
+
+
+                    }
+                    return response.json();
+                })
                 .then(data => {
                     loader.style.display = 'none'; // Hide loading indicator
 
@@ -110,6 +120,10 @@
                     });
 
                     document.querySelector('#result').style.display = 'block';
+                }).catch(error => {
+                    alert('Memory limit exceeded. This model is hosted with only 512 MB, which may not be sufficient for this deep learning model. For more details, please visit https://github.com/Devbijwe/Next-Word-Prediction-Model.');
+                    loader.style.display = 'none'; // Hide the loading indicator
+
                 });
         }
     </script>
