@@ -6,17 +6,23 @@ from tensorflow.keras.preprocessing.text import Tokenizer
 
 app = Flask(__name__)
 
-# Read the text file and initialize the model, tokenizer, and other parameters
-with open('dataset/sherlock-holm.es_stories_plain-text_advs.txt', 'r', encoding='utf-8') as file:
-    text = file.read()
+# Declare the model, tokenizer, and other parameters as global variables
+model = None
+tokenizer = None
+max_sequence_len = 17  # Update this with the value used during training
 
-tokenizer = Tokenizer()
-tokenizer.fit_on_texts([text])
-total_words = len(tokenizer.word_index) + 1
+@app.before_first_request
+def load_model_and_tokenizer():
+    global model, tokenizer
+    if model is None:
+        model = tf.keras.models.load_model('trained_model')
 
-# Initialize the model
-max_sequence_len = 17
-model = tf.keras.models.load_model('trained_model')
+    if tokenizer is None:
+        with open('dataset/sherlock-holm.es_stories_plain-text_advs.txt', 'r', encoding='utf-8') as file:
+            text = file.read()
+
+        tokenizer = Tokenizer()
+        tokenizer.fit_on_texts([text])
 
 @app.route('/')
 def index():
@@ -27,9 +33,6 @@ def generate():
     seed_text = request.form['seed_text']
     next_words = int(request.form['next_words'])
     num_results = 3  # Number of result sets to generate
-
-    # Make sure max_sequence_len matches what was used during training
-    max_sequence_len = 17  # Use the same value as used during training
 
     # Temperature for diversity (adjust as needed)
     temperature = 0.6
@@ -70,4 +73,3 @@ def generate():
         results.append(predicted_text)
 
     return jsonify({'results': results})
-
