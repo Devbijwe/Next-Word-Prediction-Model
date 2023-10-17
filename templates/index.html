@@ -14,8 +14,9 @@
             <form id="form" class="mb-4">
                 <div class="mb-6">
                     <label for="seed_text" class="block text-gray-700 font-semibold mb-2">Input Text:</label>
-                    <textarea name="seed_text" id="seed_text" rows="4" class="border p-2 w-full rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-blue-300"></textarea>
+                    <textarea name="seed_text" id="seed_text" rows="4" class="border p-2 w-full rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-blue-300" placeholder="Enter your text here..."></textarea>
                 </div>
+
                 <div class="mb-6">
                     <label for="next_words" class="block text-gray-700 font-semibold mb-2">Number of Words to Predict:</label>
                     <input type="range" name="next_words" id="next_words" min="1" max="15" value="3" class="border p-2 w-full rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-blue-300">
@@ -26,10 +27,14 @@
             <div id="result" style="display: none;">
                 <h2 class="text-2xl font-bold mb-4 text-center text-blue-500"> Predictated Text</h2>
                 <div id="loader" class="hidden mt-4 text-center">
-                    <div class="relative inline-block">
+                    <div class="relative flex justify-center items-center">
+                        <div class="absolute animate-spin rounded-full h-32 w-32 border-t-4 border-b-4 border-purple-500"></div>
+                        <img src="https://www.svgrepo.com/show/509001/avatar-thinking-9.svg" class="rounded-full h-28 w-28">
+                    </div>
+                    <!-- <div class="relative inline-block">
                         <div class="w-10 h-10 border-blue-500 border-2 rounded-full"></div>
                         <div class="w-10 h-10 border-blue-700 border-t-2 animate-spin rounded-full absolute left-0 top-0"></div>
-                    </div>
+                    </div> -->
                 </div>
                 <ul id="generated_results" class="list-disc pl-8 text-gray-700"></ul>
             </div>
